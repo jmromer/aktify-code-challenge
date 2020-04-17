@@ -11,6 +11,10 @@ RUN virtualenv --python=python3 ${VIRTUAL_ENV_PATH} && \
 COPY requirements.txt /requirements.txt
 RUN pip3 install -r /requirements.txt
 
+# Configure entrypoint script
+ENV ENTRYPOINT=/entrypoint.sh
+COPY entrypoint.sh $ENTRYPOINT
+RUN chmod +x $ENTRYPOINT
 
 # [STAGE] development (runtime)
 FROM base as development
@@ -21,4 +25,4 @@ WORKDIR $APP_PATH
 ENV PYTHON_PATH=$APP_PATH
 ENV FLASK_APP=${APP_PATH}/src/app.py
 
-CMD ["./entrypoint.sh"]
+CMD $ENTRYPOINT
