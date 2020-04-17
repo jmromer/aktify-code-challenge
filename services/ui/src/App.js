@@ -11,6 +11,7 @@ import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 import './App.css';
 import AppShell from './components/AppShell';
 import CampaignDetailsView from './views/CampaignDetailsView';
+import CampaignNewView from './views/CampaignNewView';
 import CampaignsView from './views/CampaignsView';
 import DashboardView from './views/DashboardView';
 import ViewContext from './contexts/ViewContext';
@@ -42,6 +43,7 @@ const App = () => {
               <ViewContext.Provider value={value}>
                 <AppShell>
                   <Switch>
+                    <Route exact path={routes.campaignNew} component={CampaignNewView} />
                     <Route exact path={routes.campaignList} component={CampaignsView} />
                     <Route exact path={routes.campaignDetails.pathTemplate} component={CampaignDetailsView} />
                     <Route exact path={routes.dashboard} component={DashboardView} />
