@@ -1,9 +1,13 @@
 import React from 'react';
 import { render } from '@testing-library/react';
+
 import App from './App';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test('renders campaign management link', () => {
+    const {getAllByText} = render(<App />);
+    const nodes = getAllByText(/Campaigns/i);
+
+    for (let node of nodes) {
+        expect(node).toBeInTheDocument();
+    }
 });
