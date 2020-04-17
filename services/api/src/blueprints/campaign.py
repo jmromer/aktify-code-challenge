@@ -7,13 +7,16 @@ from src.models import Campaign, db
 campaign_blueprint = Blueprint('campaign', __name__, url_prefix='/campaigns')
 
 
-@campaign_blueprint.route('/', methods=['GET', 'POST'])
+@campaign_blueprint.route('/', methods=['GET'])
 def index():
-    if request.method == 'GET':
-        campaigns = Campaign.query.all()
-        return jsonify([campaign.serialize for campaign in campaigns])
+    campaigns = Campaign.query.all()
+    return jsonify([campaign.serialize for campaign in campaigns])
+
+
+@campaign_blueprint.route('/', methods=['POST'])
+def create():
     try:
-        campaign = Campaign(**request.json)
+        campaign = Campaign(**request.get_json())
         db.session.add(campaign)
         db.session.commit()
         return jsonify(campaign.serialize)
